@@ -40,7 +40,7 @@ body,html,p,div,span,a,button,h1,h2,h3,h4,h5,Link{
     justify-content: center;
 box-shadow: 23px 0px 200px -9px #ffffff23;
     z-index: 10000;
-}
+  }
 
 
 
@@ -72,7 +72,7 @@ align-items: center;
 }
 
 
-.bot-screen{
+.bot-screen {
   background-color: black;
   max-height: 45%;
   height: 50%;
@@ -80,8 +80,13 @@ align-items: center;
   overflow: auto;
   display: flex;
   flex-direction: column;
-  gap:20px;
+  gap: 20px;
+  border-top: 2px solid;
+  border-image: linear-gradient(to right, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 30%, transparent 100%) 1;
+  transition: border-image 0.5s ease; /* Ajout de la transition */
 }
+
+
 
 .video-overlay{
   background-color:aqua;
