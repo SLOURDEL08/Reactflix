@@ -1,38 +1,263 @@
-.App {
-  text-align: center;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+html{
+  background-color: black;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body,html,p,div,span,a,button,h1,h2,h3,h4,h5,Link{
+  margin:0px;padding:0px;border:none;box-shadow: none;
+  font-family: 'Inter';
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+.app{
+  margin:0px;padding:0px;display: flex;height: 100vh;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#root{
+  margin:0px;padding:0px;
+}
+
+.Homepage{
+  padding:0px;
+  margin:0px;
+  width: 100%;
+  background-color:red;
+  overflow: hidden;
+}
+
+.navbar {
+  width: 80px;
+  background-color: #000;
+  color: white;
+  padding: 10px;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:25px;
+    justify-content: center;
+box-shadow: 23px 0px 200px -9px #ffffff23;
+    z-index: 10000;
+}
+
+
+
+.navbar img{
+  width: 25px;
+  transition: 0.3s all ease-in-out;
+  display: flex;
+justify-content: center;
+align-items: center;
+}
+.navbar div{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 12px;
+}
+
+.navbar div:hover{
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 100px;
+  transform: scale(1.2);
+}
+
+.top-screen{
+  background-color: blue;
+  max-height: 55%;
+  height: 50%;
+  display: flex;
+}
+
+
+.bot-screen{
+  background-color: black;
+  max-height: 45%;
+  height: 50%;
+  padding: 30px;
+  overflow: auto;
   display: flex;
   flex-direction: column;
+  gap:20px;
+}
+
+.video-overlay{
+  background-color:aqua;
+  max-height: 100%;
+  height: 100%;
+  width: 70%;
+}
+.details-product{
+  background-color: rgb(0, 0, 0);
+  max-height: 100%;
+  width: 30%;
+  padding: 30px;
+  display: flex;
+  
+  flex-direction: column;
+  justify-content: flex-end;
+  gap:30px;
+}
+
+
+.netflix-badges{
+width: 100px;
+}
+
+.film-title{
+  width: 90%;
+  height: auto;
+ 
+  margin:10px 0px;
+  }
+
+.ctn-btns{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap:20px
+}
+
+.ctn-btns button{
+    padding:14px 35px;
+    border-radius: 100px;
+    font-size:15px;
+    
+}
+
+.ctn-btns button:nth-child(1){
+  background:#D40000;
+  color:white;
+  
+}
+
+.ctn-btns button:nth-child(2){
+  background:#D9D9D9;
+  color:black;
+  
+}
+
+.notes{
+  color:white;
+font-weight: 500;
+display: flex;
+gap:30px;
+font-size: 14px;
+}
+
+.notes div{
+display: flex;
+gap:10px;
+justify-content: flex-start;
+align-items: center;  
+}
+
+.notes-icon{
+  width: 25px;
+}
+
+.viewbold{
+  color:#D40000
+}
+
+.carousel-items {
+  width: 200px;
+  height: 250px;
+  object-fit: cover;
+  transition: 0.5s all ease-in-out;
+  cursor: pointer;
+  filter: brightness(0.6);
+  border-radius: 10px;
+
+
+}
+
+.carousel-items:hover {
+  filter: brightness(1);
+}
+
+.carousel-items.active {
+  filter: brightness(1);
+}
+
+
+.category-films h1{
+  color:white;
+  font-size:25px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-top: 10px;
+
+
+}
+
+.carousel-category{
+  display: flex;
+  gap:20px;
+  overflow: auto;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.carousel-category {
+  scrollbar-width: thin; /* Largeur de la barre de défilement */
+  scrollbar-color: #ca1d1d00 #f1f1f100;
+  scroll-padding-top: 20px; /* Couleur de la barre de défilement et de la piste */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+
+
+video{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.video-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(rgb(0, 0, 0,0), rgba(0, 0, 0, 1));
+  z-index: 10000;
+}
+
+
+
+.carousel-items-container {
+  position: relative;
+}
+
+.itemscarou-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 1); /* Couleur de fond semi-transparente */
+  opacity: 0.3; /* Initialement transparent */
+  transition: opacity 0.3s ease; /* Transition en douceur pour l'opacité */
+}
+
+.itemscarou-overlay:hover {
+  opacity: 0;
+  pointer-events:fill /* Lorsqu'on survole l'image, l'overlay devient opaque */
 }

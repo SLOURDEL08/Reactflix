@@ -1,0 +1,98 @@
+{
+    "categories": ["Action", "Thriller", "Comedy"],
+    "films": [
+      {
+        "id": 1,
+        "imageTitle": "/images/MH-part4.png",
+        "imageFlyer": "/images/films/moneyheist.png",
+        "rating": "8.8/10",
+        "views": "+2M",
+        "videoSrc": "/video/moneyheist-p4.mp4",
+        "categories": ["Action", "Thriller"]
+      },
+      {
+        "id": 2,
+        "imageTitle": "/images/blockbuster-title.png",
+        "imageFlyer": "/images/films/blockbuster.png",
+        "rating": "9.2/10",
+        "views": "+6M",
+        "videoSrc": "/video/blockbuster-trailer.mp4",
+        "categories": ["Action", "Thriller"]
+      },
+      {
+        "id": 3,
+        "imageTitle": "/images/MH-part4.png",
+        "imageFlyer": "/images/films/moneyheist.png",
+        "rating": "8.8/10",
+        "views": "+2M",
+        "videoSrc": "/video/moneyheist-p4.mp4",
+        "categories": ["Action", "Thriller"]
+      },
+      {
+        "id": 4,
+        "imageTitle": "/images/MH-part4.png",
+        "imageFlyer": "/images/films/moneyheist.png",
+        "rating": "8.8/10",
+        "views": "+2M",
+        "videoSrc": "/video/moneyheist-p4.mp4",
+        "categories": ["Action", "Thriller"]
+      },
+      {
+        "id": 5,
+        "imageTitle": "/images/MH-part4.png",
+        "imageFlyer": "/images/films/moneyheist.png",
+        "rating": "8.8/10",
+        "views": "+2M",
+        "videoSrc": "/video/moneyheist-p4.mp4",
+        "categories": ["Action", "Thriller"]
+      },
+      {
+        "id": 6,
+        "imageTitle": "/images/MH-part4.png",
+        "imageFlyer": "/images/films/moneyheist.png",
+        "rating": "8.8/10",
+        "views": "+2M",
+        "videoSrc": "/video/moneyheist-p4.mp4",
+        "categories": ["Action", "Thriller"]
+      },
+      {
+        "id": 7,
+        "imageTitle": "/images/MH-part4.png",
+        "imageFlyer": "/images/films/moneyheist.png",
+        "rating": "8.8/10",
+        "views": "+2M",
+        "videoSrc": "/video/moneyheist-p4.mp4",
+        "categories": ["Action", "Thriller"]
+      },
+      {
+        "id": 8,
+        "imageTitle": "/images/MH-part4.png",
+        "imageFlyer": "/images/films/moneyheist.png",
+        "rating": "8.8/10",
+        "views": "+2M",
+        "videoSrc": "/video/moneyheist-p4.mp4",
+        "categories": ["Action", "Thriller"]
+      },
+      {
+        "id": 9,
+        "imageTitle": "/images/MH-part4.png",
+        "imageFlyer": "/images/films/moneyheist.png",
+        "rating": "8.8/10",
+        "views": "+2M",
+        "videoSrc": "/video/moneyheist-p4.mp4",
+        "categories": ["Action", "Thriller"]
+      },
+      {
+        "id": 10,
+        "imageTitle": "/images/MH-part4.png",
+        "imageFlyer": "/images/films/moneyheist.png",
+        "rating": "8.8/10",
+        "views": "+2M",
+        "videoSrc": "/video/moneyheist-p4.mp4",
+        "categories": ["Action", "Thriller"]
+      }
+
+      
+    ]
+  }
+  
