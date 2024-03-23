@@ -8,7 +8,12 @@ html{
 body,html,p,div,span,a,button,h1,h2,h3,h4,h5,Link{
   margin:0px;padding:0px;border:none;box-shadow: none;
   font-family: 'Inter';
+  text-decoration: none;
 }
+button{
+  background-color: #ffffff00;
+}
+
 
 
 .app{
@@ -28,7 +33,7 @@ body,html,p,div,span,a,button,h1,h2,h3,h4,h5,Link{
 }
 
 .navbar {
-  width: 80px;
+  width: 100px;
   background-color: #000;
   color: white;
   padding: 10px;
@@ -38,14 +43,14 @@ body,html,p,div,span,a,button,h1,h2,h3,h4,h5,Link{
     align-items: center;
     gap:25px;
     justify-content: center;
-box-shadow: 23px 0px 200px -9px #ffffff23;
+    box-shadow: 23px 0px 200px -9px #ffffff23;
     z-index: 10000;
   }
 
 
 
 .navbar img{
-  width: 25px;
+  width: 30px;
   transition: 0.3s all ease-in-out;
   display: flex;
 justify-content: center;
@@ -66,16 +71,16 @@ align-items: center;
 
 .top-screen{
   background-color: blue;
-  max-height: 55%;
-  height: 50%;
+  max-height: 45%;
+  height: 45%;
   display: flex;
 }
 
 
 .bot-screen {
   background-color: black;
-  max-height: 45%;
-  height: 50%;
+  max-height: 55%;
+  height: 55%;
   padding: 30px;
   overflow: auto;
   display: flex;
@@ -92,12 +97,12 @@ align-items: center;
   background-color:aqua;
   max-height: 100%;
   height: 100%;
-  width: 70%;
+  width: 65%;
 }
 .details-product{
   background-color: rgb(0, 0, 0);
   max-height: 100%;
-  width: 30%;
+  width: 35%;
   padding: 30px;
   display: flex;
   
@@ -112,10 +117,10 @@ width: 100px;
 }
 
 .film-title{
-  width: 90%;
+  width: 100%;
   height: auto;
  
-  margin:10px 0px;
+  margin:00px 0px;
   }
 
 .ctn-btns{
@@ -125,20 +130,21 @@ width: 100px;
     gap:20px
 }
 
-.ctn-btns button{
-    padding:14px 35px;
+.dyn-btn{
+    padding:12px 40px;
     border-radius: 100px;
-    font-size:15px;
-    
+    font-size:18px;
+   
+
 }
 
-.ctn-btns button:nth-child(1){
+.dyn-btn:nth-child(1){
   background:#D40000;
   color:white;
   
 }
 
-.ctn-btns button:nth-child(2){
+.dyn-btn:nth-child(2){
   background:#D9D9D9;
   color:black;
   
@@ -148,8 +154,10 @@ width: 100px;
   color:white;
 font-weight: 500;
 display: flex;
-gap:30px;
-font-size: 14px;
+flex-direction: column;
+gap:20px;
+font-size: 16px;
+margin: 10px 0px;
 }
 
 .notes div{
@@ -160,7 +168,8 @@ align-items: center;
 }
 
 .notes-icon{
-  width: 25px;
+  width: 28px;
+  height: auto;
 }
 
 .viewbold{
@@ -168,13 +177,12 @@ align-items: center;
 }
 
 .carousel-items {
-  width: 200px;
+  width: auto;
   height: 250px;
   object-fit: cover;
   transition: 0.5s all ease-in-out;
   cursor: pointer;
   filter: brightness(0.6);
-  border-radius: 10px;
 
 
 }
@@ -200,7 +208,7 @@ align-items: center;
 
 .carousel-category{
   display: flex;
-  gap:20px;
+  gap:15px;
   overflow: auto;
   justify-content: flex-start;
   align-items: center;
@@ -242,27 +250,204 @@ video{
   height: 100%;
   background: radial-gradient(rgb(0, 0, 0,0), rgba(0, 0, 0, 1));
   z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+
 }
 
 
 
-.carousel-items-container {
-  position: relative;
-}
 
-.itemscarou-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
+
+
+
+
+.MovieDetails-page{
+  display: flex;
   width: 100%;
-  z-index: 10000;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 1); /* Couleur de fond semi-transparente */
-  opacity: 0.3; /* Initialement transparent */
-  transition: opacity 0.3s ease; /* Transition en douceur pour l'opacité */
+  gap:30px;
+align-items: center;  
+overflow: hidden;
 }
 
-.itemscarou-overlay:hover {
-  opacity: 0;
-  pointer-events:fill /* Lorsqu'on survole l'image, l'overlay devient opaque */
+.player-section{
+width: 40%;
+height: 80%;
+border-bottom: 10px solid red;
 }
+
+.details-section{
+  width: 60%;
+}
+
+.overlay-detailsvideo{
+background-color: red;
+}
+
+
+
+.play-button img{
+  width: 20%;height: auto;
+position: absolute;
+bottom:45%;
+right:-10%;
+}
+
+.description-overlay{
+  color:white;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.026);
+}
+
+.description-overlay span{
+  color:white;
+  font-size:20px;
+  font-weight:600
+  
+}
+
+.description-overlay p{
+  color:rgb(164, 164, 164);
+  font-size:15px;
+  line-height: 1.5em;
+  
+}
+
+
+.details-section{
+  padding: 3%;
+
+}
+
+.top-detailssection{
+display: flex;
+justify-content: space-between;
+align-items: center;
+color:white
+}
+
+.notes-details{
+width: 30%;
+display: flex;
+gap:30px;
+justify-content: flex-end;
+align-items: center;
+flex-wrap: wrap;
+height: auto;
+}
+
+
+
+.top-detailssection-img{
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  gap:20px;
+  }
+
+  .top-detailssection-img img{
+    width: 100%;
+   
+    }
+
+    .top-detailssection-img span{
+      color:grey;
+      letter-spacing: 5px;
+      }
+  
+
+  .imb-note{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:20px;
+  color:white;
+  font-weight: 600;
+  height: auto;
+  }
+
+
+  .icon-detailnote{
+width: 3vw!important;
+height: auto;
+;
+  }
+
+  .imb-note p{
+    font-size: 1.3vw!important;
+    ;text-align: right;
+      }
+
+
+      .top-tabs{
+display: flex;
+color:white;
+justify-content: space-between;
+
+      }
+
+      .top-tabs span{
+        border-bottom:4px solid transparent;
+        padding:15px 2px;
+        padding-top: 0px;
+        font-size:20px;
+        font-weight:600;
+               }
+
+      .top-tabs span:hover{
+       border-bottom:4px solid red
+              }
+
+              .top-tabs span.active{
+                border-bottom-color:red;
+                       }
+
+              .resume-champ span{
+                font-size:15px;
+                font-weight:600
+              }
+
+              .resume-champ span:nth-child(1){
+color:gray;font-weight:600
+              }
+
+              .resume-champ span:nth-child(2){
+                color:white;
+                              }
+
+                              .tabs-details{
+                                margin-top:50px;
+                              }
+
+                              .content-tabs p{
+                                color:rgba(255, 255, 255, 0.873);
+                                margin: 30px 0px;
+                                line-height: 1.9;
+                                font-weight:500;
+                                font-size:17px;
+                                font-family: 'Inter';
+                              }
+
+                              .resume-champ{
+display: flex;
+gap:20px;
+margin-bottom: 15px;
+                              }
+
+                              .content-tabs{
+                                margin-bottom:50px;
+                              }
+
+                              .desc-filmoverlay {
+                                /* Spécifiez le nombre maximal de lignes */
+                                display: -webkit-box;
+                                -webkit-line-clamp: 5; /* Nombre de lignes maximum */
+                                -webkit-box-orient: vertical;
+                                overflow: hidden;
+                                text-overflow: ellipsis; /* Ajoute des points de suspension */
+                              }

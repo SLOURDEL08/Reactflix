@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "../App.css";
 import VideoPlayer from "../components/VideoPlayer";
 import data from "../data.json";
 
 const Home = () => {
-  const [selectedFilm, setSelectedFilm] = useState(data.films[0]); // Initialiser avec le premier film
-  const [filmsByCategory, setFilmsByCategory] = useState({}); // Initialiser un objet pour stocker les films par catégorie
+  const [selectedFilm, setSelectedFilm] = useState(data.films[0]);
+  const [filmsByCategory, setFilmsByCategory] = useState({});
 
   useEffect(() => {
-    // Mettre à jour le film sélectionné lors du montage du composant
     setSelectedFilm(data.films[0]);
 
-    // Regrouper les films par catégorie
     const groupedFilms = {};
     data.categories.forEach((category) => {
       groupedFilms[category] = data.films.filter((film) =>
@@ -19,7 +18,7 @@ const Home = () => {
       );
     });
     setFilmsByCategory(groupedFilms);
-  }, []); // Déclencher une seule fois au montage
+  }, []);
 
   const handleFilmClick = (film) => {
     setSelectedFilm(film);
@@ -30,16 +29,13 @@ const Home = () => {
       <div className="top-screen">
         {selectedFilm && (
           <div className="details-product">
-            <img
-              src="/images/N-series.png"
-              alt="icon netflix creation"
-              className="netflix-badges"
-            />
-            <img
-              src={selectedFilm.imageTitle}
-              alt={selectedFilm.title}
-              className="film-title"
-            />
+            <div className="film-info">
+              <img
+                src={selectedFilm.imageTitle}
+                alt={selectedFilm.title}
+                className={`film-title`}
+              />
+            </div>
             <div className="notes">
               <div>
                 <img
@@ -56,30 +52,43 @@ const Home = () => {
               </div>
             </div>
             <div className="ctn-btns">
-              <button>Play</button>
-              <button>Détails</button>
+              <Link className="dyn-btn" to="">
+                Play
+              </Link>
+              <Link className="dyn-btn" to={`/movie/${selectedFilm.id}`}>
+                Détails
+              </Link>
             </div>
           </div>
         )}
         <div className="video-overlay">
-          {selectedFilm && <VideoPlayer src={selectedFilm.videoSrc} />}
+          {selectedFilm && (
+            <VideoPlayer
+              src={selectedFilm.videoSrc}
+              autoplay
+              loop
+              muted
+              showOverlay={false}
+            />
+          )}
         </div>
       </div>
       <div className="bot-screen">
-        {Object.keys(filmsByCategory).map((category) => (
+        {["Action", "Thriller", "Crime"].map((category) => (
           <div className="category-films" key={category}>
             <h1>{category}</h1>
             <div key={category} className="carousel-category">
-              {filmsByCategory[category].map((film) => (
-                <img
-                  key={film.id}
-                  className={`carousel-items ${
-                    film === selectedFilm ? "active" : ""
-                  }`}
-                  alt={film.title}
-                  src={film.imageFlyer}
-                  onClick={() => handleFilmClick(film)}
-                />
+              {filmsByCategory[category]?.map((film) => (
+                <div key={film.id} className="film-container">
+                  <img
+                    className={`carousel-items ${
+                      film === selectedFilm ? "active" : ""
+                    }`}
+                    alt={film.title}
+                    src={film.imageFlyer}
+                    onClick={() => handleFilmClick(film)}
+                  />
+                </div>
               ))}
             </div>
           </div>
