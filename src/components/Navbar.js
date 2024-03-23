@@ -5,12 +5,12 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div>
-        <Link to="/">
+        <Link to="/search">
           <img src="/images/search.png" alt="icon aleatoire" />
         </Link>
       </div>
       <div>
-        <Link to="/movie/123">
+        <Link to="/">
           <img src="/images/home.png" alt="icon aleatoire" />
         </Link>
       </div>

@@ -28,7 +28,7 @@ button{
   padding:0px;
   margin:0px;
   width: 100%;
-  background-color:red;
+  background-color:#D40000;
   overflow: hidden;
 }
 
@@ -70,17 +70,17 @@ align-items: center;
 }
 
 .top-screen{
-  background-color: blue;
-  max-height: 45%;
-  height: 45%;
+  background-color: black;
+  max-height: 50%;
+  height: 50%;
   display: flex;
 }
 
 
 .bot-screen {
   background-color: black;
-  max-height: 55%;
-  height: 55%;
+  max-height: 50%;
+  height: 50%;
   padding: 30px;
   overflow: auto;
   display: flex;
@@ -94,7 +94,6 @@ align-items: center;
 
 
 .video-overlay{
-  background-color:aqua;
   max-height: 100%;
   height: 100%;
   width: 65%;
@@ -214,11 +213,7 @@ align-items: center;
   align-items: center;
 }
 
-.carousel-category {
-  scrollbar-width: thin; /* Largeur de la barre de défilement */
-  scrollbar-color: #ca1d1d00 #f1f1f100;
-  scroll-padding-top: 20px; /* Couleur de la barre de défilement et de la piste */
-}
+
 
 
 
@@ -268,21 +263,23 @@ video{
   width: 100%;
   gap:30px;
 align-items: center;  
-overflow: hidden;
+overflow:hidden;
 }
 
 .player-section{
-width: 40%;
+width: 35%;
 height: 80%;
-border-bottom: 10px solid red;
+border-bottom: 10px solid #D40000;
+
 }
 
 .details-section{
-  width: 60%;
+  width: 65%;
+  margin:auto;
 }
 
 .overlay-detailsvideo{
-background-color: red;
+background-color: #D40000;
 }
 
 
@@ -292,6 +289,7 @@ background-color: red;
 position: absolute;
 bottom:45%;
 right:-10%;
+z-index: 100000;
 }
 
 .description-overlay{
@@ -351,8 +349,9 @@ height: auto;
   }
 
   .top-detailssection-img img{
-    width: 100%;
-   
+    max-height: 100px;
+
+    width:max-content;
     }
 
     .top-detailssection-img span{
@@ -395,16 +394,16 @@ justify-content: space-between;
         border-bottom:4px solid transparent;
         padding:15px 2px;
         padding-top: 0px;
-        font-size:20px;
+        font-size:18px;
         font-weight:600;
                }
 
       .top-tabs span:hover{
-       border-bottom:4px solid red
+       border-bottom:4px solid #D40000
               }
 
               .top-tabs span.active{
-                border-bottom-color:red;
+                border-bottom-color:#D40000;
                        }
 
               .resume-champ span{
@@ -426,7 +425,7 @@ color:gray;font-weight:600
 
                               .content-tabs p{
                                 color:rgba(255, 255, 255, 0.873);
-                                margin: 30px 0px;
+                                margin: 20px 0px;
                                 line-height: 1.9;
                                 font-weight:500;
                                 font-size:17px;
@@ -440,7 +439,7 @@ margin-bottom: 15px;
                               }
 
                               .content-tabs{
-                                margin-bottom:50px;
+                                margin-bottom:30px;
                               }
 
                               .desc-filmoverlay {
@@ -450,4 +449,70 @@ margin-bottom: 15px;
                                 -webkit-box-orient: vertical;
                                 overflow: hidden;
                                 text-overflow: ellipsis; /* Ajoute des points de suspension */
+                              }
+
+                              .content-tabs p{
+                                display: -webkit-box;
+                                -webkit-line-clamp: 2; /* Nombre de lignes maximum */
+                                -webkit-box-orient: vertical;
+                                overflow: hidden;
+                                text-overflow: ellipsis; /* Ajoute des points de suspension */
+                              }
+        
+                             
+
+
+                              .bot-screen::-webkit-scrollbar {
+                                width: 10px; /* Largeur de la barre de défilement */
+                              }
+                              
+                              .bot-screen::-webkit-scrollbar-track {
+                                background: #f5f5f539; /* Couleur de fond de la barre de défilement */
+                              }
+                              
+                              .bot-screen::-webkit-scrollbar-thumb {
+                                background-color: #D40000; /* Couleur du curseur de la barre de défilement */
+                                border-radius: 0px; /* Rayon de bordure du curseur de la barre de défilement */
+                              }
+                              
+                              .bot-screen::-webkit-scrollbar-thumb:hover {
+                                background-color: #555; /* Couleur du curseur de la barre de défilement au survol */
+                              }
+
+                              .carousel-category{
+                                scrollbar-width: bold; /* Pour Firefox */
+                                scrollbar-color: #ffffff00 #f5f5f500;
+                                scrollbar-gutter: 20px; /* Pour Firefox */
+                                transition:0.5s ease-in-out;
+                                padding-bottom: 10px;
+
+                              }
+
+                              .carousel-category:hover{
+                                scrollbar-width: bold; /* Pour Firefox */
+                                scrollbar-color: #ffffff20 #f5f5f500;
+                                scrollbar-gutter: 20px; /* Pour Firefox */
+                              }
+
+                
+                              
+                              .category-films:nth-child(3) {
+                                margin-bottom: 50px; /* Ajoutez votre valeur de margin-bottom ici */
+                              }
+
+                            
+
+
+                              .fade-in {
+                                opacity: 1;
+                                transition: opacity 0.5s ease-in-out;
+                              }
+                              
+                              .fade-out {
+                                opacity: 0;
+                                transition: opacity 0.5s ease-in-out;
+                              }
+
+                              .carousel-items.moviepage{
+                                height: 200px;
                               }

@@ -4,31 +4,46 @@ import "../App.css";
 import VideoPlayer from "../components/VideoPlayer";
 import data from "../data.json";
 
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
+
 const Home = () => {
   const [selectedFilm, setSelectedFilm] = useState(data.films[0]);
   const [filmsByCategory, setFilmsByCategory] = useState({});
+  const [fadeIn, setFadeIn] = useState(true); // Variable pour gérer l'animation de fondu
 
   useEffect(() => {
     setSelectedFilm(data.films[0]);
 
     const groupedFilms = {};
     data.categories.forEach((category) => {
-      groupedFilms[category] = data.films.filter((film) =>
-        film.categories.includes(category)
+      // Shuffle films in each category
+      const shuffledFilms = shuffleArray(
+        data.films.filter((film) => film.categories.includes(category))
       );
+      groupedFilms[category] = shuffledFilms;
     });
     setFilmsByCategory(groupedFilms);
   }, []);
 
   const handleFilmClick = (film) => {
-    setSelectedFilm(film);
+    setFadeIn(false); // Déclenche le fondu sortant
+    setTimeout(() => {
+      setSelectedFilm(film);
+      setFadeIn(true); // Déclenche le fondu entrant après 0.5s
+    }, 500);
   };
 
   return (
     <div className="Homepage">
       <div className="top-screen">
         {selectedFilm && (
-          <div className="details-product">
+          <div className={`details-product ${fadeIn ? "fade-in" : "fade-out"}`}>
             <div className="film-info">
               <img
                 src={selectedFilm.imageTitle}

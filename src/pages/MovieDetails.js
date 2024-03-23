@@ -100,10 +100,6 @@ const MovieDetails = () => {
                     <span>Réalisateurs</span>
                     <span>{film.realisateur}</span>
                   </div>
-                  <div className="resume-champ">
-                    <span>Catégories</span>
-                    <span>{film.categories}</span>
-                  </div>
                 </div>
               )}
 
@@ -150,10 +146,6 @@ const MovieDetails = () => {
                     <span>Réalisateurs :</span>
                     <span>Millie Boby Brown | Finn Wolfhard</span>
                   </div>
-                  <div className="resume-champ">
-                    <span>Catégories :</span>
-                    <span>Millie Boby Brown | Finn Wolfhard</span>
-                  </div>
                 </div>
               )}
             </div>
@@ -167,7 +159,7 @@ const MovieDetails = () => {
                     onClick={() => handleFilmClick(film)}
                   >
                     <img
-                      className="carousel-items"
+                      className="carousel-items moviepage"
                       alt={film.title}
                       src={film.imageFlyer}
                     />
