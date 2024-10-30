@@ -1,113 +1,155 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "../App.css";
+import { movies, series } from "../content";
 import VideoPlayer from "../components/VideoPlayer";
-import data from "../data.json";
 
 const shuffleArray = (array) => {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
+  return [...array].sort(() => Math.random() - 0.5);
+};
+
+// Fonction pour créer des IDs uniques pour chaque contenu
+const createUniqueContent = () => {
+  const moviesWithUniqueIds = movies.map(movie => ({
+    ...movie,
+    uniqueId: `movie-${movie.id}`,
+    type: 'movie'
+  }));
+
+  const seriesWithUniqueIds = series.map(serie => ({
+    ...serie,
+    uniqueId: `series-${serie.id}`,
+    type: 'series'
+  }));
+
+  return [...moviesWithUniqueIds, ...seriesWithUniqueIds];
+};
+
+const getAllGenres = () => {
+  const movieGenres = new Set(movies.flatMap(movie => movie.genres));
+  const serieGenres = new Set(series.flatMap(serie => serie.genres));
+  return [...new Set([...movieGenres, ...serieGenres])];
 };
 
 const Home = () => {
-  const [selectedFilm, setSelectedFilm] = useState(data.films[0]);
-  const [filmsByCategory, setFilmsByCategory] = useState({});
-  const [fadeIn, setFadeIn] = useState(true); // Variable pour gérer l'animation de fondu
+  const [selectedContent, setSelectedContent] = useState(null);
+  const [contentByGenre, setContentByGenre] = useState({});
+  const [fadeIn, setFadeIn] = useState(true);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
-    setSelectedFilm(data.films[0]);
+    // Initialiser le contenu sélectionné avec le premier film
+    const allContent = createUniqueContent();
+    setSelectedContent(allContent[0]);
 
-    const groupedFilms = {};
-    data.categories.forEach((category) => {
-      // Shuffle films in each category
-      const shuffledFilms = shuffleArray(
-        data.films.filter((film) => film.categories.includes(category))
+    // Grouper le contenu par genre avec les IDs uniques
+    const genres = getAllGenres();
+    const grouped = {};
+    genres.forEach(genre => {
+      const contentWithGenre = shuffleArray(
+        allContent.filter(item => item.genres.includes(genre))
       );
-      groupedFilms[category] = shuffledFilms;
+      if (contentWithGenre.length > 0) {
+        grouped[genre] = contentWithGenre;
+      }
     });
-    setFilmsByCategory(groupedFilms);
+    setContentByGenre(grouped);
   }, []);
 
-  const handleFilmClick = (film) => {
-    setFadeIn(false); // Déclenche le fondu sortant
+  const handleContentClick = (content) => {
+    setFadeIn(false);
     setTimeout(() => {
-      setSelectedFilm(film);
-      setFadeIn(true); // Déclenche le fondu entrant après 0.5s
+      setSelectedContent(content);
+      setFadeIn(true);
     }, 500);
   };
 
+  const handlePlayClick = () => {
+    setIsFullscreen(true);
+  };
+
+  const handleExitFullscreen = () => {
+    setIsFullscreen(false);
+  };
+
+  if (!selectedContent) return null;
+
   return (
-    <div className="Homepage">
+    <div className={`Homepage ${isFullscreen ? 'fullscreen-mode' : ''}`}>
       <div className="top-screen">
-        {selectedFilm && (
-          <div className={`details-product ${fadeIn ? "fade-in" : "fade-out"}`}>
-            <div className="film-info">
+        <div className={`details-product ${fadeIn ? "fade-in" : "fade-out"} ${isFullscreen ? 'hidden' : ''}`}>
+          <div className="film-info">
+            <img
+              src={selectedContent.titleImage}
+              alt={selectedContent.title}
+              className="film-title"
+            />
+          </div>
+          <div className="notes">
+            <div>
               <img
-                src={selectedFilm.imageTitle}
-                alt={selectedFilm.title}
-                className={`film-title`}
+                className="notes-icon"
+                alt="icon notes"
+                src="/images/imdb.png"
               />
+              <span>{selectedContent.rating}</span>
             </div>
-            <div className="notes">
-              <div>
-                <img
-                  className="notes-icon"
-                  alt="icon notes"
-                  src="/images/imdb.png"
-                />
-                <span>{selectedFilm.rating}</span>
-              </div>
-              <div>
-                <span>
-                  <b className="viewbold">{selectedFilm.views}</b> de visionnage
-                </span>
-              </div>
-            </div>
-            <div className="ctn-btns">
-              <Link className="dyn-btn" to="">
-                Play
-              </Link>
-              <Link className="dyn-btn" to={`/movie/${selectedFilm.id}`}>
-                Détails
-              </Link>
+            <div>
+              <span>
+                <b className="viewbold">{Math.floor(Math.random() * 1000000) + "K"}</b> de visionnage
+              </span>
             </div>
           </div>
-        )}
-        <div className="video-overlay">
-          {selectedFilm && (
+          <div className="ctn-btns">
+            <button className="dyn-btn" onClick={handlePlayClick}>
+              Lecture
+            </button>
+            <Link 
+              className="dyn-btn" 
+              to={`/${selectedContent.type}/${selectedContent.id}`}
+            >
+              Détails
+            </Link>
+          </div>
+        </div>
+        <div className={`video-overlay ${isFullscreen ? 'fullscreen' : ''}`}>
+          {selectedContent && (
             <VideoPlayer
-              src={selectedFilm.videoSrc}
+              src={selectedContent.videoSrc}
               autoplay
               loop
-              muted
+              muted={!isFullscreen}
               showOverlay={false}
             />
           )}
+          {isFullscreen && (
+            <button className="exit-fullscreen" onClick={handleExitFullscreen}>
+              Quitter le plein écran
+            </button>
+          )}
         </div>
       </div>
-      <div className="bot-screen">
-        {["Action", "Thriller", "Crime"].map((category) => (
-          <div className="category-films" key={category}>
-            <h1>{category}</h1>
-            <div key={category} className="carousel-category">
-              {filmsByCategory[category]?.map((film) => (
-                <div key={film.id} className="film-container">
-                  <img
-                    className={`carousel-items ${
-                      film === selectedFilm ? "active" : ""
-                    }`}
-                    alt={film.title}
-                    src={film.imageFlyer}
-                    onClick={() => handleFilmClick(film)}
-                  />
-                </div>
-              ))}
+      <div className={`bot-screen ${isFullscreen ? 'hidden' : ''}`}>
+        {Object.entries(contentByGenre)
+          .slice(0, 3)
+          .map(([genre, content]) => (
+            <div className="category-films" key={`genre-${genre}`}>
+              <h1>{genre}</h1>
+              <div className="carousel-category">
+                {content.map((item) => (
+                  <div key={item.uniqueId} className="film-container">
+                    <img
+                      className={`carousel-items ${
+                        item.uniqueId === selectedContent.uniqueId ? "active" : ""
+                      }`}
+                      alt={item.title}
+                      src={item.poster}
+                      onClick={() => handleContentClick(item)}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );

@@ -1,45 +1,48 @@
 import React from "react";
-import { Link } from "react-router-dom";
-
+import { NavLink } from "react-router-dom";
 const Navbar = () => {
   return (
-    <nav className="navbar">
-      <div>
-        <Link to="/search">
-          <img src="/images/search.png" alt="icon aleatoire" />
-        </Link>
-      </div>
-      <div>
-        <Link to="/">
-          <img src="/images/home.png" alt="icon aleatoire" />
-        </Link>
-      </div>
-      <div>
-        <Link to="/movie/123">
-          <img src="/images/movie.png" alt="icon aleatoire" />
-        </Link>
-      </div>
-      <div>
-        <Link to="/movie/123">
-          <img src="/images/tv.png" alt="icon aleatoire" />
-        </Link>
-      </div>
-      <div>
-        <Link to="/movie/123">
-          <img src="/images/top.png" alt="icon aleatoire" />
-        </Link>
-      </div>
-      <div>
-        <Link to="/movie/123">
-          <img src="/images/plus.png" alt="icon aleatoire" />
-        </Link>
-      </div>
-      <div>
-        <Link to="/movie/123">
-          <img src="/images/aleatoire.png" alt="icon aleatoire" />
-        </Link>
-      </div>
-    </nav>
+    <section className="secnav">
+<div>        <img src="/images/nflix.webp" alt="" className="logoapp" />
+</div>
+         <nav className="navbar">
+      <NavLink to="/search" className="nav-item">
+        <div>
+          <i class="fi fi-br-search"></i>
+        </div>
+      </NavLink>
+      <NavLink to="/" className="nav-item" end>
+        <div>
+          <i class="fi fi-br-house-blank"></i>
+        </div>
+      </NavLink>
+      <NavLink to="/movies" className="nav-item">
+        <div>
+          <i class="fi fi-br-clapperboard-play"></i>
+        </div>
+      </NavLink>
+      <NavLink to="/series" className="nav-item">
+        <div>
+          <i class="fi fi-br-screen"></i>
+        </div>
+      </NavLink>
+      <NavLink to="/top" className="nav-item">
+        <div>
+          <i class="fi fi-br-heart"></i>
+        </div>
+      </NavLink>
+      <NavLink to="/new" className="nav-item">
+        <div>
+          <i class="fi fi-br-plus"></i>
+        </div>
+      </NavLink>
+
+      </nav>
+      <div className="exitcontainer">
+        <i class="fi fi-br-exit"></i>
+</div>
+    </section>
+ 
   );
 };
 
