@@ -117,7 +117,7 @@ const Movies = () => {
       </div>
       <div className="movies-container">
         <div className="movies-header">
-          <h1 className="movies-title">Notre sélection de <b className='reded'>Films</b></h1>
+          <h1 className="movies-title">Notre sélection de <b className='reded'><i class="fi page fi-rr-clapper-open"></i>Films</b></h1>
           <FilterBar
             type="movie"
             filters={filters}
@@ -137,7 +137,7 @@ const Movies = () => {
                 {moviesList.map((movie) => (
                   <div 
                     key={movie.id} 
-                    className={`series-container ${movie.id === selectedMovieId ? 'selected' : ''}`}
+                    className={`content-container ${movie.id === selectedMovieId ? 'selected' : ''}`}
                     onClick={() => handleMovieClick(movie)}
                   >
                     <img
@@ -155,9 +155,7 @@ const Movies = () => {
                         <div className="season-info">
                           {movie.duration}
                         </div>
-                        <div className={`status-badge ${movie.maturityRating.toLowerCase()}`}>
-                          {movie.maturityRating}
-                        </div>
+                     
                       </div>
                     </div>
                   </div>

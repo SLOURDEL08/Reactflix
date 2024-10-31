@@ -7,7 +7,6 @@ const shuffleArray = (array) => {
   return [...array].sort(() => Math.random() - 0.5);
 };
 
-// Fonction pour créer des IDs uniques pour chaque contenu
 const createUniqueContent = () => {
   const moviesWithUniqueIds = movies.map(movie => ({
     ...movie,
@@ -37,11 +36,9 @@ const Home = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
-    // Initialiser le contenu sélectionné avec le premier film
     const allContent = createUniqueContent();
     setSelectedContent(allContent[0]);
 
-    // Grouper le contenu par genre avec les IDs uniques
     const genres = getAllGenres();
     const grouped = {};
     genres.forEach(genre => {
@@ -84,6 +81,7 @@ const Home = () => {
               className="film-title"
             />
           </div>
+          <p className="descp">{selectedContent.description}</p>
           <div className="notes">
             <div>
               <img
@@ -129,28 +127,48 @@ const Home = () => {
         </div>
       </div>
       <div className={`bot-screen ${isFullscreen ? 'hidden' : ''}`}>
-        {Object.entries(contentByGenre)
-          .slice(0, 3)
-          .map(([genre, content]) => (
-            <div className="category-films" key={`genre-${genre}`}>
-              <h1>{genre}</h1>
-              <div className="carousel-category">
-                {content.map((item) => (
-                  <div key={item.uniqueId} className="film-container">
-                    <img
-                      className={`carousel-items ${
-                        item.uniqueId === selectedContent.uniqueId ? "active" : ""
-                      }`}
-                      alt={item.title}
-                      src={item.poster}
-                      onClick={() => handleContentClick(item)}
-                    />
+  {Object.entries(contentByGenre)
+    .slice(0, 3)
+    .map(([genre, content]) => (
+      <div className="category-series" key={`genre-${genre}`}>
+        <h2>{genre}</h2>
+        <div className="carousel-category">
+          {content.map((item) => (
+            <div 
+              key={item.uniqueId} 
+              className={`content-container ${item.uniqueId === selectedContent.uniqueId ? 'selected' : ''}`}
+              onClick={() => handleContentClick(item)}
+            >
+              <img
+                className="carousel-items"
+                alt={item.title}
+                src={item.poster}
+              />
+              <div className="media-info-container">
+                <h3 className="media-title">{item.title}</h3>
+                <div className="media-stats">
+                  <div className="rating-badge">
+                    <span className="rating-icon">⭐</span>
+                    <span className="rating-value">{item.rating}</span>
                   </div>
-                ))}
+                  <div className="season-info">
+                    {item.type === 'movie' ? item.duration : `${item.seasons} saisons`}
+                  </div>
+                  <div className={`status-badge ${
+                    item.type === 'movie' 
+                      ? item.maturityRating.toLowerCase()
+                      : item.status.toLowerCase() === 'terminée' ? 'completed' : 'ongoing'
+                  }`}>
+                    {item.type === 'movie' ? item.maturityRating : item.status}
+                  </div>
+                </div>
               </div>
             </div>
           ))}
+        </div>
       </div>
+    ))}
+</div>
     </div>
   );
 };

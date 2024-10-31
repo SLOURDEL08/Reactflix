@@ -1,6 +1,6 @@
 import React from 'react';
 import { FilterDropdown } from './FilterDropdown';
-
+import '../../App.css'
 const FilterBar = ({ 
   type, // 'movie' ou 'series'
   filters,
@@ -21,7 +21,7 @@ const FilterBar = ({
   const commonFilters = {
     genres: {
       label: "Genres",
-      icon: "🎭",
+      icon: <img src='./images/categorie.png' alt='' width={18} height={18} />,
       options: [...new Set(data.flatMap(item => item.genres))].map(genre => ({
         value: genre,
         label: genre,
@@ -30,7 +30,7 @@ const FilterBar = ({
     },
     rating: {
       label: "Note IMDb",
-      icon: "⭐",
+      icon: <img src='./images/star-sharp-half-stroke.png' alt='' width={18} height={18} />,
       options: [
         { value: "9+", label: "9+ ★★★★★", count: data.filter(item => item.rating >= 9).length },
         { value: "8-9", label: "8-9 ★★★★☆", count: data.filter(item => item.rating >= 8 && item.rating < 9).length },
@@ -40,7 +40,7 @@ const FilterBar = ({
     },
     language: {
       label: "Langue",
-      icon: "🌍",
+      icon: <img src='./images/europe-flag.png' alt='' width={18} height={18} />,
       options: [...new Set(data.map(item => item.language))].map(lang => ({
         value: lang,
         label: lang,
@@ -54,7 +54,7 @@ const FilterBar = ({
     ...commonFilters,
     releaseDate: {
       label: "Année",
-      icon: "📅",
+      icon: <img src='./images/time-quarter-past.png' alt='' width={18} height={18} />,
       options: [...new Set(data.map(movie => 
         new Date(movie.releaseDate).getFullYear()
       ))].sort().reverse().map(year => ({
@@ -67,7 +67,7 @@ const FilterBar = ({
     },
     maturityRating: {
       label: "Classification",
-      icon: "🔞",
+      icon: <img src='./images/age-restriction-eighteen.png' alt='' width={18} height={18} />,
       options: [...new Set(data.map(movie => movie.maturityRating))].map(rating => ({
         value: rating,
         label: rating,
@@ -81,7 +81,7 @@ const FilterBar = ({
     ...commonFilters,
     status: {
       label: "Statut",
-      icon: "📺",
+      icon: <i class="fi fi-rr-tags"></i>,
       options: [
         { value: "En cours", label: "En cours", count: data.filter(s => s.endYear === null).length },
         { value: "Terminée", label: "Terminée", count: data.filter(s => s.endYear !== null).length }
@@ -89,7 +89,7 @@ const FilterBar = ({
     },
     seasons: {
       label: "Saisons",
-      icon: "📑",
+      icon: <i class="fi fi-rr-folder-open"></i>,
       options: [
         { value: "1-3", label: "1-3 saisons", count: data.filter(s => s.seasons <= 3).length },
         { value: "4-6", label: "4-6 saisons", count: data.filter(s => s.seasons > 3 && s.seasons <= 6).length },

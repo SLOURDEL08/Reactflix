@@ -3,12 +3,14 @@
 @tailwind utilities;
 
 @import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-rounded/css/uicons-bold-rounded.css');
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 .fi{
   color:white;
   margin-bottom:-3px;
   font-size:20px
 }
+
 html{
   background-color: black;
 }
@@ -60,7 +62,6 @@ button{
 
   }
 
-
 .navbar:hover .fi {    
   font-size:22px;
       transition:0.3s ease-in-out all;
@@ -102,8 +103,8 @@ align-items: center;
 .bot-screen {
   background-color: black;
   max-height: 50%;
-  height: 50%;
   padding: 30px;
+  color:white;
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -125,6 +126,7 @@ align-items: center;
   max-height: 100%;
   width: 35%;
   padding: 30px;
+  
   display: flex;
   
   flex-direction: column;
@@ -176,10 +178,15 @@ width: 100px;
   color:white;
 font-weight: 500;
 display: flex;
-flex-direction: column;
 gap:20px;
 font-size: 16px;
 margin: 10px 0px;
+}
+
+
+.details-product p{
+  color:white;
+
 }
 
 .notes div{
@@ -783,24 +790,59 @@ margin-bottom: 15px;
   height: calc(100vh- 4em); overflow-x: hidden;padding: 2em;
   background: linear-gradient(to right, #ffffff02, #000000);
 }
+.series-container{ 
+  margin-top: 40px;
 
-.series-container {
+border-radius: 14px;
+color: white;
+display: flex;
+flex-direction: column;
+justify-content: start;
+gap:40px
+}
+
+.fi.page{
+  color:red;
+  font-size: 90%;
+  font-style:normal;
+}
+.fi.page.tv{
+  color:red;
+  font-size: 95%;
+  font-style:normal;
+  font-weight: 800;
+}
+.movies-container{ 
+  margin-top: 40px;
+border-radius: 14px;
+color: white;
+display: flex;
+flex-direction: column;
+justify-content: start;
+gap:40px
+}
+
+.content-container {
   color: white;
   padding: 0rem;
+  border:1px solid #ffffff10;
+  height: 300px;
 
 }
-.movies-container {
-  color: white;
-  padding: 0rem;
 
-}
 .series-title {
   font-size: 2.5rem;
   font-weight: bold;
+  display: flex ;
+  align-items: center;
+  gap:15px
 }
 .movies-title {
   font-size: 2.5rem;
   font-weight: bold;
+    display: flex ;
+  align-items: center;
+  gap:15px
 }
 
 .categories-container {
@@ -905,14 +947,22 @@ margin-bottom: 15px;
   color: #a0a0a0;
 }
 
-.reded{color:red}
+.reded{color:red;
+display: inline-flex;
+align-items: center;
+gap:15px;
+  font-weight: 500!important;
+
+
+}
 .slider-affiche {
   position: relative;
   width: 100%;
   height: 50vh;
   min-height: 50vh;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 16px;
+  border:1px solid #ffffff10
 
 }
 
@@ -956,7 +1006,7 @@ gap:10px
 
 .slider-content p {
   font-size: 1rem;
- 
+  width: 75%;
   margin-bottom: 20px;
 }
 
@@ -1073,13 +1123,12 @@ gap:10px
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding:40px 0px;
 }
 .series-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding:40px 0px;
+  padding:0px 0px;
 }
 
 .filter-dropdown {
@@ -1135,7 +1184,7 @@ gap:10px
   max-height: 80px;
   width: fit-content;
   height: auto;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 
@@ -1153,7 +1202,6 @@ gap:10px
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
-  padding: 1rem 0;
 }
 
 .sort-menu {
@@ -1165,10 +1213,11 @@ gap:10px
   background: rgba(255, 255, 255, 0.1);
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
   cursor: pointer;
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 0.5rem;
   font-size: 0.9rem;
@@ -1181,6 +1230,12 @@ gap:10px
 
 .sort-icon {
   font-size: 1.1rem;
+}
+
+.sor-icon{
+  display: flex;
+  justify-content: center; 
+  align-items: center;
 }
 
 .sort-panel {
@@ -1291,22 +1346,24 @@ gap:10px
 }
 
 /* Conteneur de série */
-.series-container {
+.content-container {
   position: relative;
-  border-radius: 8px;
+  border-radius: 14px;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.3s ease;
   flex: 0 0 200px; /* Ajustez selon vos besoins */
 }
 
-.series-container:hover {
+.content-container:hover {
   z-index: 2;
+  transform: translateY(-10px);
 }
 
 /* Image */
 .carousel-items {
   width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: top left;
   border-radius: 8px;
@@ -1336,7 +1393,7 @@ gap:10px
 }
 
 /* Affichage des infos uniquement sur l'élément survolé */
-.series-container:hover > .media-info-container {
+.content-container:hover > .media-info-container {
   visibility: visible; /* Changement ici */
   opacity: 1;
   transform: translateY(0);
@@ -1418,7 +1475,7 @@ gap:10px
 }
 
 /* Optimisation de la performance */
-.series-container {
+.content-container {
   will-change: transform;
 }
 
@@ -1428,7 +1485,13 @@ gap:10px
 
 /* Ajustements responsives */
 @media (max-width: 768px) {
-  .series-container {
+
+ 
+
+  .title{
+
+  }
+  .content-container {
     flex: 0 0 150px;
     height: 225px;
   }
@@ -1462,11 +1525,12 @@ padding: 20px 0px;
   justify-content: space-around;
   align-items: center;
   background-color: rgba(255,255,255,0.03);
+  box-shadow: 0px 0px 60px 0px #ffffff30;
 }
 
 
 .exitcontainer{
-  background-color: white ;
+  background-color: rgba(255,255,255,0.8) ;
   padding: 5px;
   border-radius: 100px;
   width: 40px;
@@ -1474,10 +1538,38 @@ padding: 20px 0px;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition:0.15s ease-in-out all;
+}
+.exitcontainer:hover{
+  background-color: rgba(255,255,255,1) ;
+cursor: pointer;
+    transition:0.15s ease-in-out all;
+
+}.exitcontainer .fi{
+transform: scale(1);
+  transition:0.15s ease-in-out all;
+
+  
+}
+
+.exitcontainer:hover .fi{
+transform: scale(1.2);
+  transition:0.15s ease-in-out all;
+
+  
 }
 
 .exitcontainer .fi{
  margin-bottom:-4px;
  color:#000;
  font-size:20px;
+}
+
+.secnav .logoapp {    
+  transform:scale(1);
+  transition:0.2s ease-in-out all;}
+.secnav:hover .logoapp {    
+  transform: scale(1.2)!important;
+  transition:0.2s ease-in-out all;
+
 }

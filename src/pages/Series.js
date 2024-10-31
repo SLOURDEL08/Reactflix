@@ -125,7 +125,7 @@ const Series = () => {
       </div>
       <div className="series-container">
         <div className="series-header">
-          <h1 className="series-title">Parcourez nos <b className='reded'>Séries</b></h1>
+          <h1 className="series-title">Parcourez nos <b className='reded'><i class="fi page tv fi-rr-screen"> </i>Séries</b></h1>
           <FilterBar
             type="series"
             filters={filters}
@@ -145,7 +145,7 @@ const Series = () => {
                {seriesList.map((serie) => (
   <div 
     key={serie.id} 
-    className={`series-container ${serie.id === selectedSeriesId ? 'selected' : ''}`}
+    className={`content-container ${serie.id === selectedSeriesId ? 'selected' : ''}`}
     onClick={() => handleSeriesClick(serie)}
   >
     <img
@@ -163,9 +163,7 @@ const Series = () => {
         <div className="season-info">
           {serie.seasons} saisons
         </div>
-        <div className={`status-badge ${serie.status.toLowerCase() === 'terminée' ? 'completed' : 'ongoing'}`}>
-          {serie.status}
-        </div>
+        
       </div>
     </div>
   </div>

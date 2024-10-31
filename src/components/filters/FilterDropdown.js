@@ -4,7 +4,7 @@ import React from 'react';
 export const FilterDropdown = ({ label, options, selected, onChange, icon }) => (
   <div className="sort-menu">
     <button className="sort-trigger">
-      {icon && <span className="sort-icon">{icon}</span>}
+      {icon && <div className="sor-icon">{icon}</div>}
       {label}
     </button>
     <div className="sort-panel">

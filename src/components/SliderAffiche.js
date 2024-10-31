@@ -12,11 +12,11 @@ const SliderAffiche = ({ items, itemType = 'movie', selectedItemId = null }) => 
       if (!selectedItemId) { // Ne pas faire défiler automatiquement si un film est sélectionné
         setCurrentIndex((prevIndex) => (prevIndex + 1) % items.length);
       }
-    }, 5000);
+    }, 6000);
 
     const wallpaperInterval = setInterval(() => {
       setCurrentWallpaper((prev) => prev === 1 ? 2 : 1);
-    }, 7000);
+    }, 3000);
 
     return () => {
       clearInterval(slideInterval);
