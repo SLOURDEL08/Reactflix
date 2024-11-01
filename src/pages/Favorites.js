@@ -1,51 +1,67 @@
-import React, { useState, useEffect } from 'react';
-import ContentGrid from '../components/ContentGrid'; 
-import { useContentData } from '../hooks/useContentData'; // Assurez-vous que cette fonction est importée
+import React from 'react';
+import ContentGrid from '../components/ContentGrid';
+import { useContentData } from '../hooks/useContentData';
+import useFavorites from '../hooks/useFavorites';
+import { useAuth } from '../contexts/AuthContext';
 
 const Favorites = () => {
-  const { content: allMovies } = useContentData('movie'); // Récupérer tous les films
-  const { content: allSeries } = useContentData('series'); // Récupérer toutes les séries
-  const [favorites, setFavorites] = useState(() => {
-    // Récupérer les favoris depuis le stockage local
-    const savedFavorites = localStorage.getItem('favorites');
-    return savedFavorites ? JSON.parse(savedFavorites) : [];
-  });
+  const { user } = useAuth();
+  const { content: allMovies, loading: moviesLoading } = useContentData('movie');
+  const { content: allSeries, loading: seriesLoading } = useContentData('serie');
+  const { favorites, toggleFavorite, loading: favoritesLoading } = useFavorites();
 
-  // Filtrer les films et séries favoris à partir des listes complètes
+  // Attendre que toutes les données soient chargées
+  if (moviesLoading || seriesLoading || favoritesLoading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner">Chargement de vos favoris...</div>
+      </div>
+    );
+  }
+
+  // Rediriger si non connecté
+  if (!user) {
+    return (
+      <div className="favorites-page">
+        <div className="auth-message">
+          Veuillez vous connecter pour voir vos favoris.
+        </div>
+      </div>
+    );
+  }
+
+  // Filtrer les films et séries favoris
   const favoriteMovies = allMovies.filter(movie => favorites.includes(movie.id));
-  const favoriteSeries = allSeries.filter(series => favorites.includes(series.id));
-
-  const handleRemoveFavorite = (item) => {
-    const updatedFavorites = favorites.filter(favId => favId !== item.id);
-    setFavorites(updatedFavorites);
-    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
-  };
+  const favoriteSeries = allSeries.filter(serie => favorites.includes(serie.id));
 
   return (
     <div className="favorites-page">
       <h1>Films et Séries Favoris</h1>
       {favoriteMovies.length === 0 && favoriteSeries.length === 0 ? (
-        <p>Aucun favori trouvé.</p>
+        <div className="no-favorites">
+          <p>Vous n'avez pas encore de favoris.</p>
+          <p>Ajoutez des films et séries à vos favoris pour les retrouver ici !</p>
+        </div>
       ) : (
         <>
           {favoriteMovies.length > 0 && (
             <ContentGrid
               title="Films Favoris"
-              items={favoriteMovies} // Utilisation de la liste filtrée des films favoris
-              selectedId={null} // Ou vous pouvez gérer une sélection si nécessaire
-              onItemClick={() => {}} // Vous pouvez ajouter une logique si vous souhaitez gérer le clic
-              favorites={favorites} // Passer les ID de favoris
-              onToggleFavorite={handleRemoveFavorite} // Passer la fonction pour enlever un favori
+              items={favoriteMovies}
+              selectedId={null}
+              onItemClick={() => {}}
+              favorites={favorites}
+              onToggleFavorite={toggleFavorite}
             />
           )}
           {favoriteSeries.length > 0 && (
             <ContentGrid
               title="Séries Favoris"
-              items={favoriteSeries} // Utilisation de la liste filtrée des séries favoris
-              selectedId={null} // Ou vous pouvez gérer une sélection si nécessaire
-              onItemClick={() => {}} // Vous pouvez ajouter une logique si vous souhaitez gérer le clic
-              favorites={favorites} // Passer les ID de favoris
-              onToggleFavorite={handleRemoveFavorite} // Passer la fonction pour enlever un favori
+              items={favoriteSeries}
+              selectedId={null}
+              onItemClick={() => {}}
+              favorites={favorites}
+              onToggleFavorite={toggleFavorite}
             />
           )}
         </>

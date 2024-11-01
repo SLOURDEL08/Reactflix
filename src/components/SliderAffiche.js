@@ -75,10 +75,9 @@ const SliderAffiche = ({ items, itemType = 'movie', selectedItemId = null }) => 
               {itemType === 'movie' ? currentItem.duration : `${currentItem.seasons} saisons`}
             </span>
           </div>
-          <div className="ctn-btns">
-            <button className="dyn-btn play-btn">
+          <div className="ctn-btns sly ">
+            <button className="dyn-btn sly play-btn">
               <img src="./images/jouer.png" alt="" width={20} height={20}/>
-              Lecture
             </button>
             <Link 
               to={`/${itemType}/${currentItem.slug}`} 

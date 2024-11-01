@@ -1,27 +1,66 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useContentData } from '../hooks/useContentData';
 import VideoPlayer from './VideoPlayer';
+import { db } from '../firebase/config';
+import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 
 const ContentDetails = () => {
-  const { slug } = useParams();
+  const { type, slug } = useParams();
   const navigate = useNavigate();
-  const { getBySlug, getByGenre } = useContentData('all');
+  const [content, setContent] = useState(null);
+  const [similarContent, setSimilarContent] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('resume');
 
-  const content = getBySlug(slug);
+  // Récupérer le contenu spécifique
+useEffect(() => {
+    const fetchContent = async () => {
+      setLoading(true);
+      try {
+        const collectionName = type === 'movie' ? 'movies' : 'series';
+        
+        // D'abord, chercher le document par son slug
+        const q = query(
+          collection(db, collectionName),
+          where('slug', '==', slug)
+        );
+        const querySnapshot = await getDocs(q);
 
-  // Vérification de sécurité pour le contenu
-  if (!content) {
-    return <div className="error-message">Contenu non trouvé.</div>;
-  }
+        if (!querySnapshot.empty) {
+          // Prendre le premier document correspondant au slug
+          const docData = querySnapshot.docs[0];
+          const contentData = { id: docData.id, ...docData.data() };
+          setContent(contentData);
 
-  // Vérification de sécurité pour les contenus similaires
-  const similarContent = content.genres && content.genres[0] 
-    ? getByGenre(content.genres[0])
-      .filter(item => item && item.id !== content.id && item.type === content.type)
-      .slice(0, 6)
-    : [];
+          // Récupérer le contenu similaire
+          if (contentData.genres && contentData.genres.length > 0) {
+            const similarQuery = query(
+              collection(db, collectionName),
+              where('genres', 'array-contains', contentData.genres[0]),
+              where('slug', '!=', slug) // Exclure le contenu actuel
+            );
+            const similarSnap = await getDocs(similarQuery);
+            const similarData = similarSnap.docs
+              .map(doc => ({ id: doc.id, ...doc.data() }))
+              .slice(0, 6);
+            setSimilarContent(similarData);
+          }
+        } else {
+          setError('Contenu non trouvé');
+        }
+      } catch (err) {
+        setError(`Erreur lors du chargement : ${err.message}`);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (slug) {
+      fetchContent();
+    }
+  }, [slug, type]);
 
   const handleSimilarClick = (item) => {
     if (item && item.type && item.slug) {
@@ -30,9 +69,9 @@ const ContentDetails = () => {
     }
   };
 
-  // Helper pour afficher la durée/période selon le type avec vérification
+  // Helper pour afficher la durée/période
   const getDurationInfo = () => {
-    if (!content.type) return '';
+    if (!content) return '';
 
     if (content.type === 'movie') {
       const year = content.releaseDate ? new Date(content.releaseDate).getFullYear() : '';
@@ -43,15 +82,35 @@ const ContentDetails = () => {
     return `${content.startYear || ''}${status} | ${content.seasons || 0} saisons | ${content.maturityRating || ''}`;
   };
 
-  // Helper pour vérifier si une propriété est valide
+  // Helper pour le status
   const getStatusClass = () => {
-    if (!content.type || !content.status) return '';
+    if (!content?.type || !content?.status) return '';
 
     if (content.type === 'movie') {
       return content.maturityRating ? content.maturityRating.toLowerCase() : '';
     }
-    return content.status.toLowerCase() === 'terminée' ? 'completed' : 'ongoing';
+    return content.status?.toLowerCase() === 'terminée' ? 'completed' : 'ongoing';
   };
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner">Chargement...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="error-container">
+        <div className="error-message">{error}</div>
+      </div>
+    );
+  }
+
+  if (!content) {
+    return <div className="error-message">Contenu non trouvé.</div>;
+  }
 
   return (
     <div className="MovieDetails-page">
