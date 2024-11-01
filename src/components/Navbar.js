@@ -23,15 +23,15 @@ const Navbar = () => {
       </NavLink>
       <NavLink to="/series" className="nav-item">
         <div>
-          <i class="fi fi-rr-screen"></i>
+          <i class="fi fi-rr-tv-retro"></i>
         </div>
       </NavLink>
-      <NavLink to="/top" className="nav-item">
+      <NavLink to="/favorites" className="nav-item">
         <div>
           <i class="fi fi-rr-heart"></i>
         </div>
       </NavLink>
-      <NavLink to="/new" className="nav-item">
+      <NavLink to="/add" className="nav-item">
         <div>
           <i class="fi fi-rr-plus"></i>
         </div>

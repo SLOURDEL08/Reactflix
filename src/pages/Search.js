@@ -1,22 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import data from '../data.json';
+import { useContentData } from '../hooks/useContentData';
 import '../App.css';
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
+  const { content: allContent } = useContentData('all');
 
-  useEffect(() => {
-    if (searchTerm) {
-      const results = data.films.filter(film =>
-        film.title.toLowerCase().includes(searchTerm.toLowerCase())
+  // Fonction de recherche sécurisée
+  const searchResults = useMemo(() => {
+    if (!searchTerm.trim()) return [];
+
+    const term = searchTerm.toLowerCase();
+    return allContent.filter(item => {
+      if (!item || !item.title) return false;
+      
+      return (
+        item.title.toLowerCase().includes(term) ||
+        (item.description && item.description.toLowerCase().includes(term)) ||
+        (item.genres && item.genres.some(genre => 
+          genre.toLowerCase().includes(term)
+        ))
       );
-      setSearchResults(results);
-    } else {
-      setSearchResults([]);
-    }
-  }, [searchTerm]);
+    });
+  }, [searchTerm, allContent]);
 
   return (
     <div className="search-page">
@@ -30,19 +37,33 @@ const Search = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
+
       {searchResults.length > 0 && (
         <div className="search-results">
-          {searchResults.map((film) => (
-            <Link to={`/movie/${film.id}`} key={film.id} className="search-result-item">
-              <img src={film.imageFlyer} alt={film.title} className="search-result-image" />
+          {searchResults.map((item) => (
+            <Link 
+              to={`/${item.type}/${item.slug}`} 
+              key={`${item.type}-${item.id}`} 
+              className="search-result-item"
+            >
+              <img 
+                src={item.poster} 
+                alt={item.title} 
+                className="search-result-image" 
+              />
               <div className="search-result-info">
-                <h3 className="search-result-title">{film.title}</h3>
-                <p className="search-result-year">{film.year}</p>
+                <h3 className="search-result-title">{item.title}</h3>
+                <p className="search-result-year">
+                  {item.type === 'movie' 
+                    ? new Date(item.releaseDate).getFullYear()
+                    : item.startYear}
+                </p>
               </div>
             </Link>
           ))}
         </div>
       )}
+
       {searchTerm && searchResults.length === 0 && (
         <p className="no-results">Aucun résultat trouvé pour "{searchTerm}"</p>
       )}

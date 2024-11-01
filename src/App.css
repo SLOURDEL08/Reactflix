@@ -38,7 +38,6 @@ button{
   padding:0px;
   margin:0px;
   width: 100%;
-  background-color:#D40000;
   overflow: hidden;
 }
 
@@ -93,7 +92,6 @@ align-items: center;
 }
 
 .top-screen{
-  background-color: black;
   max-height: 50%;
   height: 50%;
   display: flex;
@@ -101,7 +99,6 @@ align-items: center;
 
 
 .bot-screen {
-  background-color: black;
   max-height: 50%;
   padding: 30px;
   color:white;
@@ -122,7 +119,6 @@ align-items: center;
   width: 65%;
 }
 .details-product{
-  background-color: rgb(0, 0, 0);
   max-height: 100%;
   width: 35%;
   padding: 30px;
@@ -130,7 +126,7 @@ align-items: center;
   display: flex;
   
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap:30px;
 }
 
@@ -140,10 +136,10 @@ width: 100px;
 }
 
 .film-title{
-  width: 100%;
+  width: 90%;
   height: auto;
   max-height: 150px;
- max-width: 100%;
+ max-width: 90%;
   margin:00px 0px;
   }
 
@@ -151,13 +147,80 @@ width: 100px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap:20px
+    gap:30px
+}
+.flex-topcontent{
+  display: flex;
+  justify-content: flex;
+  gap:40px;
+}
+.flex-slide{
+  width: 100%;
+}
+.cate {
+  width: 400px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
 }
 
+.cate div {
+  padding: 20px 5px;
+  border-radius: 20px;
+  border: 1px solid #ffffff40;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  transition: 0.2s ease-out all;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative; /* Important pour le positionnement de l'image */
+  overflow: hidden;
+}
+
+.cate div:hover {
+  transform: scale(1.1);
+  border: 1px solid red;
+  background-color: rgba(255, 0, 0, 0.2);
+}
+
+.cate a {
+  z-index: 2; /* S'assurer que le lien est au-dessus de l'image */
+  position: relative; /* Position relative pour que le z-index fonctionne correctement */
+}
+
+.cate img {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(20deg);
+  opacity: 0.2;
+  z-index: 1; /* L'image doit être en dessous de l'élément <a> */
+}
+
+
+div.actifed{
+  color:white;
+  background-color: red;
+  border-color: red;
+}
+div.actifed:hover{
+  color:white;
+  background-color: red;
+  border-color: red;
+}
 .dyn-btn{
-    padding:12px 40px;
+    padding:12px 30px;
     border-radius: 100px;
     font-size:18px;
+    display: flex;
+    gap:10px;
+    align-items: center;
    
 
 }
@@ -511,9 +574,11 @@ margin-bottom: 15px;
                                 border-radius: 0px; /* Rayon de bordure du curseur de la barre de défilement */
                               }
                               
-                              .bot-screen::-webkit-scrollbar-thumb:hover {
-                                background-color: #555; /* Couleur du curseur de la barre de défilement au survol */
-                              }
+
+                           
+
+                              
+                           
 
                               .carousel-category{
                                 scrollbar-width: bold; /* Pour Firefox */
@@ -527,9 +592,11 @@ margin-bottom: 15px;
                               .carousel-category:hover{
                                 scrollbar-width: bold; /* Pour Firefox */
                                 scrollbar-color: #ffffff20 #f5f5f500;
-                                scrollbar-gutter: 20px; /* Pour Firefox */
+                                scrollbar-gutter: 50px; /* Pour Firefox */
                               }
 
+
+                             
                 
                               
                               .category-films:nth-child(3) {
@@ -952,9 +1019,18 @@ display: inline-flex;
 align-items: center;
 gap:15px;
   font-weight: 500!important;
+  margin-left:15px;
 
 
 }
+
+.series-page::-webkit-scrollbar-thumb{
+  background-color: #D40000!important;
+    border-radius: 0px!important;
+}
+
+
+                           
 .slider-affiche {
   position: relative;
   width: 100%;
@@ -1317,22 +1393,7 @@ gap:10px
   margin-left: 0.5rem;
 }
 
-.sort-options-list::-webkit-scrollbar {
-  width: 6px;
-}
 
-.sort-options-list::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.sort-options-list::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 3px;
-}
-
-.sort-options-list::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
 
 
 
@@ -1378,25 +1439,21 @@ gap:10px
   left: 0;
   right: 0;
   padding: 1rem;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(0, 0, 0, 0.65) 20%,
-    rgba(0, 0, 0, 0.95) 100%
-  );
+  backdrop-filter: blur(8px);
+  background: linear-gradient(to right, #ffffff20, #00000000);
   visibility: hidden; /* Changement ici */
   opacity: 0;
-  transform: translateY(100%);
   transition: all 0.3s ease;
   border-radius: 0px;
   pointer-events: none; /* Ajout ici */
 }
-
+.fi.ba{
+  color: black;
+}
 /* Affichage des infos uniquement sur l'élément survolé */
 .content-container:hover > .media-info-container {
   visibility: visible; /* Changement ici */
   opacity: 1;
-  transform: translateY(0);
   pointer-events: auto; /* Ajout ici */
 }
 
@@ -1524,9 +1581,10 @@ padding: 20px 0px;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  background-color: rgba(255,255,255,0.03);
-  box-shadow: 0px 0px 60px 0px #ffffff30;
+  background-color: rgba(255,255,255,0.0);
+  box-shadow: 0px 0px 100px 0px #ffffff30;
 }
+
 
 
 .exitcontainer{
@@ -1573,3 +1631,141 @@ transform: scale(1.2);
   transition:0.2s ease-in-out all;
 
 }
+
+
+
+
+
+.favorite-icon{
+  position: absolute;
+  top:1rem;
+  right:1rem;
+  margin-top: 0!important;
+}
+
+.add-content-page {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #141414; /* Fond sombre comme Netflix */
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+
+.add-content-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #181818; /* Fond sombre comme Netflix */
+  border-radius: 8px;
+  color: #ffffff; /* Couleur du texte */
+}
+
+.add-content-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.add-content-form {
+  display: flex;
+  flex-direction: column;
+}
+.title{
+  font-size:35px;
+}
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #333333; /* Couleur des champs */
+  color: #ffffff; /* Couleur du texte des champs */
+  font-size: 14px;
+  outline: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #888888; /* Couleur du texte des placeholders */
+}
+
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+.submit-button {
+  padding: 10px;
+  background-color: #e50914; /* Couleur du bouton similaire à Netflix */
+  border: none;
+  border-radius: 4px;
+  color: #ffffff; /* Couleur du texte du bouton */
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #f40612; /* Couleur plus claire au survol */
+}
+
+.error-message {
+  background-color: #ff4d4d; /* Fond d'erreur rouge */
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+
+
+                           /* Pour Firefox */
+
+
+
+
+                               .movies-page::-webkit-scrollbar {
+                                width: 10px; /* Largeur de la barre de défilement */
+                              }
+                              
+                               .movies-page::-webkit-scrollbar-track {
+                                background: #f5f5f539; /* Couleur de fond de la barre de défilement */
+                              }
+                              
+                               .movies-page::-webkit-scrollbar-thumb {
+                                background-color: #D40000; /* Couleur du curseur de la barre de défilement */
+                                border-radius: 0px; /* Rayon de bordure du curseur de la barre de défilement */
+                              }
+
+                                     .series-page::-webkit-scrollbar {
+                                width: 10px; /* Largeur de la barre de défilement */
+                              }
+                              
+                               .series-page::-webkit-scrollbar-track {
+                                background: #f5f5f539; /* Couleur de fond de la barre de défilement */
+                              }
+                              
+                               .series-page::-webkit-scrollbar-thumb {
+                                background-color: #D40000; /* Couleur du curseur de la barre de défilement */
+                                border-radius: 0px; /* Rayon de bordure du curseur de la barre de défilement */
+                              }

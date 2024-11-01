@@ -1,79 +1,59 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { movies, series } from "../content";
+import { useContentData } from '../hooks/useContentData';
 import VideoPlayer from "../components/VideoPlayer";
+import ContentGrid from "../components/ContentGrid";
+import useFavorites from '../hooks/useFavorites'; // Importez le hook
 
-const shuffleArray = (array) => {
-  return [...array].sort(() => Math.random() - 0.5);
-};
-
-const createUniqueContent = () => {
-  const moviesWithUniqueIds = movies.map(movie => ({
-    ...movie,
-    uniqueId: `movie-${movie.id}`,
-    type: 'movie'
-  }));
-
-  const seriesWithUniqueIds = series.map(serie => ({
-    ...serie,
-    uniqueId: `series-${serie.id}`,
-    type: 'series'
-  }));
-
-  return [...moviesWithUniqueIds, ...seriesWithUniqueIds];
-};
-
-const getAllGenres = () => {
-  const movieGenres = new Set(movies.flatMap(movie => movie.genres));
-  const serieGenres = new Set(series.flatMap(serie => serie.genres));
-  return [...new Set([...movieGenres, ...serieGenres])];
-};
+const VISIBLE_GENRES_COUNT = 3;
 
 const Home = () => {
+  const { content: allContent, getAllGenres } = useContentData('all');
   const [selectedContent, setSelectedContent] = useState(null);
   const [contentByGenre, setContentByGenre] = useState({});
-  const [fadeIn, setFadeIn] = useState(true);
+  
+  // Utilisation du hook pour gérer les favoris
+  const { favorites, toggleFavorite } = useFavorites(); 
+
   const [isFullscreen, setIsFullscreen] = useState(false);
 
+  // Initialisation du contenu par genre au chargement
   useEffect(() => {
-    const allContent = createUniqueContent();
-    setSelectedContent(allContent[0]);
+    if (!allContent?.length) return;
 
-    const genres = getAllGenres();
-    const grouped = {};
-    genres.forEach(genre => {
-      const contentWithGenre = shuffleArray(
-        allContent.filter(item => item.genres.includes(genre))
+    // Sélectionner le contenu initial
+    if (!selectedContent) {
+      setSelectedContent(allContent[0]);
+    }
+
+    // Grouper et trier le contenu par genre
+    const genres = getAllGenres().slice(0, VISIBLE_GENRES_COUNT);
+    const groupedContent = genres.reduce((acc, genre) => {
+      const items = allContent.filter(item => 
+        Array.isArray(item.genres) && item.genres.includes(genre)
       );
-      if (contentWithGenre.length > 0) {
-        grouped[genre] = contentWithGenre;
-      }
-    });
-    setContentByGenre(grouped);
-  }, []);
+      if (items.length > 0) acc[genre] = items;
+      return acc;
+    }, {});
 
+    setContentByGenre(groupedContent);
+  }, [allContent, getAllGenres, selectedContent]);
+
+  // Affiche les détails du contenu sélectionné
   const handleContentClick = (content) => {
-    setFadeIn(false);
-    setTimeout(() => {
-      setSelectedContent(content);
-      setFadeIn(true);
-    }, 500);
+    if (content) setSelectedContent(content);
   };
 
-  const handlePlayClick = () => {
-    setIsFullscreen(true);
-  };
+  // Gestion du plein écran pour la lecture de vidéo
+  const handlePlayClick = () => setIsFullscreen(true);
+  const handleExitFullscreen = () => setIsFullscreen(false);
 
-  const handleExitFullscreen = () => {
-    setIsFullscreen(false);
-  };
-
-  if (!selectedContent) return null;
+  if (!selectedContent || !contentByGenre) return null;
 
   return (
     <div className={`Homepage ${isFullscreen ? 'fullscreen-mode' : ''}`}>
       <div className="top-screen">
-        <div className={`details-product ${fadeIn ? "fade-in" : "fade-out"} ${isFullscreen ? 'hidden' : ''}`}>
+        <div className={`details-product ${isFullscreen ? 'hidden' : ''}`}>
           <div className="film-info">
             <img
               src={selectedContent.titleImage}
@@ -99,76 +79,60 @@ const Home = () => {
           </div>
           <div className="ctn-btns">
             <button className="dyn-btn" onClick={handlePlayClick}>
+              <img src="./images/jouer.png" alt="" width={20} height={20}/>
               Lecture
             </button>
             <Link 
               className="dyn-btn" 
-              to={`/${selectedContent.type}/${selectedContent.id}`}
+              to={`/${selectedContent.type}/${selectedContent.slug}`}
             >
+              <img src="./images/info.png" alt="" width={20} height={20}/>
               Détails
             </Link>
           </div>
         </div>
         <div className={`video-overlay ${isFullscreen ? 'fullscreen' : ''}`}>
-          {selectedContent && (
-            <VideoPlayer
-              src={selectedContent.videoSrc}
-              autoplay
-              loop
-              muted={!isFullscreen}
-              showOverlay={false}
-            />
-          )}
+          <VideoPlayer
+            src={selectedContent.videoSrc}
+            autoplay
+            loop
+            muted={!isFullscreen}
+            showOverlay={false}
+          />
           {isFullscreen && (
             <button className="exit-fullscreen" onClick={handleExitFullscreen}>
+              <i className="fi fi-rr-cross"></i>
               Quitter le plein écran
             </button>
           )}
         </div>
       </div>
       <div className={`bot-screen ${isFullscreen ? 'hidden' : ''}`}>
-  {Object.entries(contentByGenre)
-    .slice(0, 3)
-    .map(([genre, content]) => (
-      <div className="category-series" key={`genre-${genre}`}>
-        <h2>{genre}</h2>
-        <div className="carousel-category">
-          {content.map((item) => (
-            <div 
-              key={item.uniqueId} 
-              className={`content-container ${item.uniqueId === selectedContent.uniqueId ? 'selected' : ''}`}
-              onClick={() => handleContentClick(item)}
-            >
-              <img
-                className="carousel-items"
-                alt={item.title}
-                src={item.poster}
-              />
-              <div className="media-info-container">
-                <h3 className="media-title">{item.title}</h3>
-                <div className="media-stats">
-                  <div className="rating-badge">
-                    <span className="rating-icon">⭐</span>
-                    <span className="rating-value">{item.rating}</span>
-                  </div>
-                  <div className="season-info">
-                    {item.type === 'movie' ? item.duration : `${item.seasons} saisons`}
-                  </div>
-                  <div className={`status-badge ${
-                    item.type === 'movie' 
-                      ? item.maturityRating.toLowerCase()
-                      : item.status.toLowerCase() === 'terminée' ? 'completed' : 'ongoing'
-                  }`}>
-                    {item.type === 'movie' ? item.maturityRating : item.status}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        {/* Section des contenus favoris */}
+        <ContentGrid
+          title="Contenus Favoris"
+          items={allContent.filter(content => favorites.includes(content.id))}
+          selectedId={selectedContent?.id}
+          onItemClick={handleContentClick}
+          contentType="all"
+          favorites={favorites}
+          onToggleFavorite={toggleFavorite}
+        />
+        
+        {/* Affichage des contenus groupés par genre */}
+        {Object.entries(contentByGenre).map(([genre, content]) => (
+          <ContentGrid
+            key={genre}
+            title={genre}
+            items={content}
+            selectedId={selectedContent?.id}
+            onItemClick={handleContentClick}
+            contentType="all"
+            favorites={favorites}
+            onToggleFavorite={toggleFavorite}
+          />
+        ))}
       </div>
-    ))}
-</div>
     </div>
   );
 };
