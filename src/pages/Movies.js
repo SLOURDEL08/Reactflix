@@ -150,6 +150,8 @@ const Movies = () => {
            filters={filters}
            onFilterChange={setFilters}
            data={allMovies}
+             onGenreSelect={handleGenreSelect}  // Ajoutez cette prop
+
          />
        </div>
 

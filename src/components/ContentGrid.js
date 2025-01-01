@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { FaRegHeart, FaHeart } from 'react-icons/fa'; // Assurez-vous que react-icons est installé
 

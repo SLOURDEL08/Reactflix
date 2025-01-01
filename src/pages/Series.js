@@ -156,6 +156,8 @@ const Series = () => {
            filters={filters}
            onFilterChange={setFilters}
            data={allSeries}
+             onGenreSelect={handleGenreSelect}  // Ajoutez cette prop
+
          />
        </div>
 
