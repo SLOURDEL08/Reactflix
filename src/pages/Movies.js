@@ -134,19 +134,7 @@ const Movies = () => {
            selectedItemId={selectedMovieId}
          />
        </div>
-       <div className='cate'>
-         {SELECTED_GENRES.map(genre => (
-           <div 
-             key={genre} 
-             onClick={() => handleGenreSelect(genre)}
-             className={selectedGenre === genre ? 'actifed' : ''}
-           >
-             <a>
-               {genre}
-             </a>
-           </div>
-         ))}
-       </div>
+     
      </div>
      <div className="movies-container">
        <div className="movies-header">

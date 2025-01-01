@@ -140,19 +140,7 @@ const Series = () => {
            selectedItemId={selectedSeriesId}
          />
        </div>
-       <div className='cate'>
-         {SELECTED_GENRES.map(genre => (
-           <div 
-             key={genre} 
-             onClick={() => handleGenreSelect(genre)}
-             className={selectedGenre === genre ? 'actifed' : ''}
-           >
-             <a>
-               {genre}
-             </a>
-           </div>
-         ))}
-       </div>
+  
      </div>
      <div className="series-container">
        <div className="series-header">
