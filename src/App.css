@@ -352,7 +352,7 @@ video{
   z-index: 10000;
   display: flex;
   justify-content: center;
-  align-items: end;
+  align-items: flex-end;
 
 }
 
