@@ -30,20 +30,7 @@ const Search = () => {
     });
   }, [searchTerm, allContent]);
 
-  // Format de date sécurisé
-  const getYear = (item) => {
-    if (!item) return '';
-    
-    try {
-      if (item.type === 'movie') {
-        return item.releaseDate ? new Date(item.releaseDate).getFullYear() : '';
-      }
-      return item.startYear || '';
-    } catch (err) {
-      console.error('Erreur de formatage de date:', err);
-      return '';
-    }
-  };
+  
 
   if (loading) {
     return (

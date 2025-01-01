@@ -4,8 +4,6 @@ import {
   RouterProvider,
   Navigate,
   Outlet,
-  useNavigate,
-  useParams
 } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import Navbar from "./components/Navbar";

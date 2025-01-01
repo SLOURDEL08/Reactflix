@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useContentData } from '../hooks/useContentData';
 import VideoPlayer from './VideoPlayer';
 import { db } from '../firebase/config';
-import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
 const ContentDetails = () => {
   const { type, slug } = useParams();
